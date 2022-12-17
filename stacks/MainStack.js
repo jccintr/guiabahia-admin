@@ -9,6 +9,9 @@ import EditCidade from "../screens/EditCidade";
 import Categorias from "../screens/Categorias";
 import AddCategoria from "../screens/AddCategoria";
 import EditCategoria from "../screens/EditCategoria";
+import Cidade from "../screens/Cidade";
+import AddContato from "../screens/AddContato";
+import EditContato from "../screens/EditContato";
 
 
 const Stack = createNativeStackNavigator();
@@ -24,6 +27,9 @@ const MainStack = () => {
         <Stack.Screen  name="Categorias" options={{ title: 'Categorias' }} component={Categorias}/>
         <Stack.Screen  name="AddCategoria" options={{ title: 'Nova Categoria' }} component={AddCategoria}/>
         <Stack.Screen  name="EditCategoria" options={{ title: 'Editando Categoria' }} component={EditCategoria}/>
+        <Stack.Screen  name="Cidade" options={{ title: 'Informações da Cidade' }} component={Cidade}/>
+        <Stack.Screen  name="AddContato" options={{ title: 'Novo Contato' }} component={AddContato}/>
+        <Stack.Screen  name="EditContato" options={{ title: 'Editando Contato' }} component={EditContato}/>
     </Stack.Navigator>
   )
 }

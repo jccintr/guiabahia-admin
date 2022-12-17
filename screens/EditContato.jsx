@@ -6,10 +6,11 @@ import { database } from '../firebaseConfig';
 import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 
-const EditCidade = ({route}) => {
+const EditContato = ({route}) => {
     const navigation = useNavigation();
-    const {cidade} = route.params;
-    const [nomeCidade,setNomeCidade] = useState(cidade.nome);
+    const {contato} = route.params;
+    const [nome,setNome] = useState(contato.nome);
+    const [telefone,setTelefone] = useState(contato.telefone);
    
     /*
     const deleteAlert = () =>
@@ -29,16 +30,14 @@ const EditCidade = ({route}) => {
 
     const onSalvar =  () => {
     
-      const docRef = doc(database,'Cidades',cidade.id);
-      updateDoc(docRef,{nome: nomeCidade});
-      cidade.nome = nomeCidade;
-      console.log("cidade-nome="+cidade.nome);
-      navigation.navigate('Cidade',{cidade: cidade});
+      const docRef = doc(database,'Contatos',contato.id);
+      updateDoc(docRef,{nome: nome,telefone: telefone});
+      navigation.goBack();
 
     }
 
     const onDelete = async () => {
-        const docRef = doc(database,'Contatos',contact.id);
+        const docRef = doc(database,'Contatos',contato.id);
         deleteDoc(docRef);
         navigation.goBack();
     }
@@ -47,15 +46,24 @@ const EditCidade = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-          
-            placeholder="Digite o nome da cidade"
-            value={nomeCidade}
-            onChangeText={ (text) => setNomeCidade(text)}
+            placeholder="Digite o nome do contato"
+            value={nome}
+            onChangeText={ (text) => setNome(text)}
             password={false}
             keyboard="default"
           />
+            <InputField 
+           
+           placeholder="Digite o telefone do contato"
+           value={telefone}
+           onChangeText={ (text) => setTelefone(text)}
+           password={false}
+           keyboard="number-pad"
+       />
        
-            
+            <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+               <Text style={styles.buttonText}>EXCLUIR</Text>
+            </TouchableOpacity>
             <TouchableOpacity onPress={onSalvar} style={styles.button}>
                <Text style={styles.buttonText}>SALVAR</Text>
             </TouchableOpacity>
@@ -65,7 +73,7 @@ const EditCidade = ({route}) => {
        )
 }
 
-export default EditCidade
+export default EditContato
 
 
 const styles = StyleSheet.create({

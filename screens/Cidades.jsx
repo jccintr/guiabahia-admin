@@ -32,7 +32,8 @@ const onAddPress = () =>{
   }
 
   const onCidadePress = (cidade) => {
-    navigation.navigate('EditCidade',{cidade: cidade})
+    //navigation.navigate('EditCidade',{cidade: cidade});
+    navigation.navigate('Cidade',{cidade: cidade});
   }
 
 return (
@@ -84,8 +85,6 @@ const styles = StyleSheet.create({
        fontWeight: 'bold',
        fontSize: 30,
        color: '#fff',
-
-
     },
     loading:{
        
