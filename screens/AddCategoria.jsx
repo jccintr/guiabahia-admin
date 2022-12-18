@@ -22,7 +22,7 @@ const AddCategoria = () => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-           
+           label="Nome"
            placeholder="Digite o nome da categoria"
            value={nomeCategoria}
            onChangeText={ (text) => setNomeCategoria(text)}
@@ -30,7 +30,7 @@ const AddCategoria = () => {
            keyboard="default"
        />
         <InputField 
-           
+           label="Nome"
            placeholder="Digite a ordem da categoria"
            value={ordemCategoria}
            onChangeText={ (text) => setOrdemCategoria(text*1)}

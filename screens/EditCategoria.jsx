@@ -46,6 +46,7 @@ const EditCategoria = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
+            label="Nome"
             placeholder="Digite o nome da categoria"
             value={nomeCategoria}
             onChangeText={ (text) => setNomeCategoria(text)}
@@ -53,7 +54,7 @@ const EditCategoria = ({route}) => {
             keyboard="default"
           />
             <InputField 
-           
+           label="Ordem de Exibição"
            placeholder="Digite a ordem da categoria"
            value={ordemCategoria.toString()}
            onChangeText={ (text) => setOrdemCategoria(text*1)}

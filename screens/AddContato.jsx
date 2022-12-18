@@ -42,6 +42,7 @@ const AddContato = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
+                label="Nome"
                 placeholder="Digite o nome do contato"
                 value={nome}
                 onChangeText={ (text) => setNome(text)}
@@ -49,6 +50,7 @@ const AddContato = ({route}) => {
                 keyboard="default"
             />
             <InputField 
+              label="Telefone"
               placeholder="Digite o telefone do contato"
               value={telefone}
               onChangeText={ (text) => setTelefone(text)}

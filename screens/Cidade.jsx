@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
-import { StyleSheet,SafeAreaView,View,ScrollView, StatusBar, TouchableOpacity,Text} from 'react-native';
+import { StyleSheet,SafeAreaView,View,ScrollView,TouchableOpacity,Text} from 'react-native';
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
 import ContactItem from '../components/ContactItem';
@@ -18,6 +18,7 @@ const Cidade = ({route}) => {
   const [isLoading,setIsLoading] = useState(true);
   const [cidadeId,setCidadeId] = useState(cidade.id);
   const [pesquisa,setPesquisa] = useState('');
+  const [searchText,setSearchText] = useState('');
 
 
 
@@ -81,12 +82,13 @@ const onContatoPress = (contato) => {
        <Text style={styles.contactListTitle}>Contatos desta Cidade</Text>
        {contatos.length>0?<SearchField
             placeholder="Pesquisar"
-            value={pesquisa}
-            onChangeText={t=>setPesquisa(t)}
+            value={searchText}
+            onChangeText={t=>setSearchText(t)}
         />:''}
        {contatos.length===0 ? <Text style={styles.noContactText}>Nenhum contato cadastrado.</Text>:''}
-       {contatos.sort((a,b) => (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0)).map(contato => <TouchableOpacity key={contato.id} style={{width:'100%'}} onPress={()=>onContatoPress(contato)}><ContactItem key={contato.id} label={contato.nome} categoria={GetCategoryName(contato.categoriaId)}/></TouchableOpacity>)}
-        
+       <ScrollView style={{width:'100%'}} showsVerticalScrollIndicator={false}>
+         {contatos.filter((contato)=>contato.nome.toUpperCase().includes(searchText.toUpperCase())).sort((a,b) => (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0)).map(contato => <TouchableOpacity key={contato.id} style={{width:'100%'}} onPress={()=>onContatoPress(contato)}><ContactItem key={contato.id} label={contato.nome} categoria={GetCategoryName(contato.categoriaId)}/></TouchableOpacity>)}
+       </ScrollView>
        <TouchableOpacity  onPress={()=>onAddPress()}style={styles.addButton}>
            <FontAwesome name="plus" size={24} color="white" />
         </TouchableOpacity>

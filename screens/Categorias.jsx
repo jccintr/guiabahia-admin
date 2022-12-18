@@ -15,6 +15,7 @@ const navigation = useNavigation();
 const [categorias,setCategorias] = useState([]);
 const [isLoading,setIsLoading] = useState(true);
 const [pesquisa,setPesquisa] = useState('');
+const [searchText,setSearchText] = useState('');
 
 useEffect(()=>{
     const collectionRef = collection(database,'Categorias');
@@ -43,11 +44,11 @@ return (
         <StatusBar/>
         <SearchField
             placeholder="Pesquisar"
-            value={pesquisa}
-            onChangeText={t=>setPesquisa(t)}
+            value={searchText}
+            onChangeText={t=>setSearchText(t)}
         />
         <ScrollView style={{width:'100%'}} showsVerticalScrollIndicator={false}>
-           {categorias.map(categoria => <TouchableOpacity key={categoria.id} style={{width:'100%'}}onPress={()=>onCategoriaPress(categoria)}><ListItem key={categoria.id} label={categoria.nome} /></TouchableOpacity>)}
+           {categorias.filter((categoria)=>categoria.nome.toUpperCase().includes(searchText.toUpperCase())).map(categoria => <TouchableOpacity key={categoria.id} style={{width:'100%'}}onPress={()=>onCategoriaPress(categoria)}><ListItem key={categoria.id} label={categoria.nome} /></TouchableOpacity>)}
         </ScrollView>
         <TouchableOpacity  onPress={()=>onAddPress()}style={styles.addButton}>
            <FontAwesome name="plus" size={24} color="white" />

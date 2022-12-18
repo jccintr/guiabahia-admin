@@ -47,7 +47,7 @@ const EditCidade = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-          
+            label="Nome"
             placeholder="Digite o nome da cidade"
             value={nomeCidade}
             onChangeText={ (text) => setNomeCidade(text)}

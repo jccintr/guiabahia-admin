@@ -13,7 +13,7 @@ import SearchField from '../components/SearchField';
 const Cidades = () => {
 const navigation = useNavigation();
 const [cidades,setCidades] = useState([]);
-const [pesquisa,setPesquisa] = useState('');
+const [searchText,setSearchText] = useState('');
 const [isLoading,setIsLoading] = useState(true);
 
 useEffect(()=>{
@@ -44,11 +44,11 @@ return (
         <StatusBar/>
         <SearchField
             placeholder="Pesquisar"
-            value={pesquisa}
-            onChangeText={t=>setPesquisa(t)}
+            value={searchText}
+            onChangeText={t=>setSearchText(t)}
         />
         <ScrollView style={{width:'100%'}} showsVerticalScrollIndicator={false}>
-          {cidades.map(cidade => <TouchableOpacity key={cidade.id} style={{width:'100%'}} onPress={()=>onCidadePress(cidade)}><ListItem key={cidade.id} label={cidade.nome} /></TouchableOpacity>)}
+          {cidades.filter((cidade)=>cidade.nome.toUpperCase().includes(searchText.toUpperCase())).map(cidade => <TouchableOpacity key={cidade.id} style={{width:'100%'}} onPress={()=>onCidadePress(cidade)}><ListItem key={cidade.id} label={cidade.nome} /></TouchableOpacity>)}
         </ScrollView>
         <TouchableOpacity  onPress={()=>onAddPress()}style={styles.addButton}>
            <FontAwesome name="plus" size={24} color="white" />
