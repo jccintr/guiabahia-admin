@@ -2,16 +2,18 @@ import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
 import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, StatusBar, TouchableOpacity,Dimensions} from 'react-native';
 import { database } from '../firebaseConfig';
-import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
+import { collection,onSnapshot, orderBy, query} from 'firebase/firestore';
 import ListItem from '../components/Listitem';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
+import SearchField from '../components/SearchField';
 
 
 
 const Cidades = () => {
 const navigation = useNavigation();
 const [cidades,setCidades] = useState([]);
+const [pesquisa,setPesquisa] = useState('');
 const [isLoading,setIsLoading] = useState(true);
 
 useEffect(()=>{
@@ -40,6 +42,11 @@ return (
 
     <SafeAreaView style={styles.container}>
         <StatusBar/>
+        <SearchField
+            placeholder="Pesquisar"
+            value={pesquisa}
+            onChangeText={t=>setPesquisa(t)}
+        />
         <ScrollView style={{width:'100%'}} showsVerticalScrollIndicator={false}>
           {cidades.map(cidade => <TouchableOpacity key={cidade.id} style={{width:'100%'}} onPress={()=>onCidadePress(cidade)}><ListItem key={cidade.id} label={cidade.nome} /></TouchableOpacity>)}
         </ScrollView>
@@ -69,6 +76,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         paddingHorizontal: 10,
+        paddingTop: 10,
     },
     addButton: {
         position: 'absolute',

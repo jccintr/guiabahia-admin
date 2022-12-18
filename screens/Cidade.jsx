@@ -4,8 +4,9 @@ import { StyleSheet,SafeAreaView,View,ScrollView, StatusBar, TouchableOpacity,Te
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
 import ContactItem from '../components/ContactItem';
-import { FontAwesome,Feather } from '@expo/vector-icons'; 
+import { FontAwesome,Feather,MaterialIcons } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
+import SearchField from '../components/SearchField';
 
 
 
@@ -13,17 +14,20 @@ const Cidade = ({route}) => {
   const navigation = useNavigation();
   const {cidade} = route.params;
   const [contatos,setContatos] = useState([]);
+  const [categorias,setCategorias] = useState([]);
   const [isLoading,setIsLoading] = useState(true);
-  
+  const [cidadeId,setCidadeId] = useState(cidade.id);
+  const [pesquisa,setPesquisa] = useState('');
+
 
 
   useEffect(()=>{
-    const collectionRef = collection(database,'Contatos');
+    const collectionRef = collection(database,'Categorias');
     // const q = query(collectionRef, where("nome", "==", "Daniela"));
     const q = query(collectionRef, orderBy('nome','asc'));
 
     const unsuscribe = onSnapshot(q,querySnapshot => {
-      setContatos(querySnapshot.docs.map(doc => ( {id: doc.id, nome: doc.data().nome,telefone: doc.data().telefone} )))
+      setCategorias(querySnapshot.docs.map(doc => ( {id: doc.id, nome: doc.data().nome} )))
     })
     setIsLoading(false);
     return unsuscribe;
@@ -31,11 +35,35 @@ const Cidade = ({route}) => {
 }, []);
 
 
+  useEffect(()=>{
+    const collectionRef = collection(database,'Contatos');
+    const q = query(collectionRef, where("cidadeId", "==", cidade.id));
+   // const q = query(collectionRef, orderBy('nome','asc'));
+
+    const unsuscribe = onSnapshot(q,querySnapshot => {
+      setContatos(querySnapshot.docs.map(doc => ( {id: doc.id, nome: doc.data().nome,telefone: doc.data().telefone,categoriaId: doc.data().categoriaId} )))
+    })
+    setIsLoading(false);
+    return unsuscribe;
+
+}, []);
+
+const GetCategoryName = (categoryId) => {
+  let categoryName = '' 
+  for (let i=0;i<categorias.length;i++){
+    if(categorias[i].id===categoryId){
+      categoryName = categorias[i].nome
+    }
+  }
+  return categoryName;
+}
+
 const onEditCidade = () => {
    navigation.navigate('EditCidade',{cidade: cidade});
 }
 const onAddPress = () => {
-  navigation.navigate('AddContato');
+  console.log("onAddpress cidadeId="+cidadeId);
+ navigation.navigate('AddContato',{cidadeId: cidadeId});
 }
 
 const onContatoPress = (contato) => {
@@ -47,11 +75,18 @@ const onContatoPress = (contato) => {
        <View style={styles.cityNamearea}>
           <Text style={styles.cityNameText}>{cidade.nome}</Text>
           <TouchableOpacity onPress={()=>onEditCidade()}>
-              <Feather name="edit" size={26} color="black" />  
+              <MaterialIcons name="edit" size={26} color="black" />  
           </TouchableOpacity>
        </View>
        <Text style={styles.contactListTitle}>Contatos desta Cidade</Text>
-       {contatos.map(contato => <TouchableOpacity key={contato.id} style={{width:'100%'}} onPress={()=>onContatoPress(contato)}><ContactItem key={contato.id} label={contato.nome} /></TouchableOpacity>)}
+       {contatos.length>0?<SearchField
+            placeholder="Pesquisar"
+            value={pesquisa}
+            onChangeText={t=>setPesquisa(t)}
+        />:''}
+       {contatos.length===0 ? <Text style={styles.noContactText}>Nenhum contato cadastrado.</Text>:''}
+       {contatos.sort((a,b) => (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0)).map(contato => <TouchableOpacity key={contato.id} style={{width:'100%'}} onPress={()=>onContatoPress(contato)}><ContactItem key={contato.id} label={contato.nome} categoria={GetCategoryName(contato.categoriaId)}/></TouchableOpacity>)}
+        
        <TouchableOpacity  onPress={()=>onAddPress()}style={styles.addButton}>
            <FontAwesome name="plus" size={24} color="white" />
         </TouchableOpacity>
@@ -95,6 +130,16 @@ const styles = StyleSheet.create({
     fontSize: 22,
     width:'100%',
     textAlign: 'left',
+    marginBottom:10,
+  },
+  noContactText:{
+    position: 'absolute',
+    top: '50%',
+    left: 0,
+    fontSize: 14,
+    width:'100%',
+    textAlign: 'center',
+    color: '#000',
   },
   addButton: {
     position: 'absolute',

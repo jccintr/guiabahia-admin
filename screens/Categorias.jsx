@@ -6,6 +6,7 @@ import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'fire
 import ListItem from '../components/Listitem';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
+import SearchField from '../components/SearchField';
 
 
 
@@ -13,6 +14,7 @@ const Categorias = () => {
 const navigation = useNavigation();
 const [categorias,setCategorias] = useState([]);
 const [isLoading,setIsLoading] = useState(true);
+const [pesquisa,setPesquisa] = useState('');
 
 useEffect(()=>{
     const collectionRef = collection(database,'Categorias');
@@ -39,6 +41,11 @@ return (
 
     <SafeAreaView style={styles.container}>
         <StatusBar/>
+        <SearchField
+            placeholder="Pesquisar"
+            value={pesquisa}
+            onChangeText={t=>setPesquisa(t)}
+        />
         <ScrollView style={{width:'100%'}} showsVerticalScrollIndicator={false}>
            {categorias.map(categoria => <TouchableOpacity key={categoria.id} style={{width:'100%'}}onPress={()=>onCategoriaPress(categoria)}><ListItem key={categoria.id} label={categoria.nome} /></TouchableOpacity>)}
         </ScrollView>
@@ -46,6 +53,7 @@ return (
            <FontAwesome name="plus" size={24} color="white" />
         </TouchableOpacity>
         {isLoading&&<ActivityIndicator style={styles.loading} size="large" color="#00f"/>}
+        
     </SafeAreaView>
 
     )
@@ -66,6 +74,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#fff',
         paddingHorizontal: 10,
+        paddingTop: 10,
     },
     addButton: {
         position: 'absolute',

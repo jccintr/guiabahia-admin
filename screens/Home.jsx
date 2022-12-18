@@ -19,9 +19,7 @@ const Home = () => {
             <TouchableOpacity style={styles.menu} onPress={()=>navigation.navigate('Categorias')}>
                 <Text style={styles.menuText}>Cadastro de Categorias</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.menu} onPress={()=>navigation.navigate('Categorias')}>
-                <Text style={styles.menuText}>Cadastro de Contatos</Text>
-            </TouchableOpacity>
+           
            
         </SafeAreaView>
        

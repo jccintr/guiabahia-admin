@@ -6,12 +6,12 @@ import { deleteDoc,doc,updateDoc } from 'firebase/firestore';
 import { Entypo } from '@expo/vector-icons';
 
 
-const ContactItem = ({label}) => {
+const ContactItem = ({label,categoria}) => {
   return (
     <View style={styles.container}>
         <View>
             <Text style={styles.text}>{label}</Text>
-            <Text style={styles.categoryText}>Hotéis e Pousadas</Text>
+            <Text style={styles.categoryText}>{categoria}</Text>
         </View>
         <Entypo name="chevron-small-right" size={30} color="black" />  
     </View>
