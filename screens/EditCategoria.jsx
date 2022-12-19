@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
@@ -46,7 +46,7 @@ const EditCategoria = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-            label="Nome"
+            label="Nome:"
             placeholder="Digite o nome da categoria"
             value={nomeCategoria}
             onChangeText={ (text) => setNomeCategoria(text)}
@@ -54,7 +54,7 @@ const EditCategoria = ({route}) => {
             keyboard="default"
           />
             <InputField 
-           label="Ordem de Exibição"
+           label="Ordem de Exibição:"
            placeholder="Digite a ordem da categoria"
            value={ordemCategoria.toString()}
            onChangeText={ (text) => setOrdemCategoria(text*1)}
@@ -62,9 +62,7 @@ const EditCategoria = ({route}) => {
            keyboard="number-pad"
        />
        
-            <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
-               <Text style={styles.buttonText}>EXCLUIR</Text>
-            </TouchableOpacity>
+          
             <TouchableOpacity onPress={onSalvar} style={styles.button}>
                <Text style={styles.buttonText}>SALVAR</Text>
             </TouchableOpacity>
@@ -80,7 +78,7 @@ export default EditCategoria
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: 40,
+        paddingTop: 10,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

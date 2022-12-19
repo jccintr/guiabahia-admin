@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
@@ -21,7 +21,7 @@ const AddCidade = () => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-           label="Nome"
+           label="Nome:"
            placeholder="Digite o nome da cidade"
            value={nomeCidade}
            onChangeText={ (text) => setNomeCidade(text)}
@@ -43,7 +43,7 @@ export default AddCidade
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: 40,
+        paddingTop: 10,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

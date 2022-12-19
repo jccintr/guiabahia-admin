@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, {useState } from 'react';
 import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
@@ -22,7 +22,7 @@ const AddCategoria = () => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-           label="Nome"
+           label="Nome:"
            placeholder="Digite o nome da categoria"
            value={nomeCategoria}
            onChangeText={ (text) => setNomeCategoria(text)}
@@ -30,7 +30,7 @@ const AddCategoria = () => {
            keyboard="default"
        />
         <InputField 
-           label="Nome"
+           label="Ordem:"
            placeholder="Digite a ordem da categoria"
            value={ordemCategoria}
            onChangeText={ (text) => setOrdemCategoria(text*1)}
@@ -52,7 +52,7 @@ export default AddCategoria
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: 40,
+        paddingTop: 10,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

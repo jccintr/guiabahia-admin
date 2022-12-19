@@ -18,8 +18,8 @@ const Stack = createNativeStackNavigator();
 
 const MainStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerShown: true}} initialRouteName="Home">
-        <Stack.Screen  name="Preload"  component={Preload}/>
+    <Stack.Navigator screenOptions={{ headerShown: true}} initialRouteName="Preload">
+        <Stack.Screen  name="Preload" options={{ headerShown: false }} component={Preload}/>
         <Stack.Screen  name="Home" options={{ title: 'Guia Bahia Admin' }} component={Home}/>
         <Stack.Screen  name="Cidades" options={{ title: 'Cadastro de Cidades' }} component={Cidades}/>
         <Stack.Screen  name="AddCidade" options={{ title: 'Nova Cidade' }} component={AddCidade}/>

@@ -1,6 +1,6 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
-import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, StatusBar, TouchableOpacity,Dimensions} from 'react-native';
+import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, StatusBar, TouchableOpacity} from 'react-native';
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query} from 'firebase/firestore';
 import ListItem from '../components/Listitem';
@@ -98,6 +98,15 @@ const styles = StyleSheet.create({
        
         alignItems: 'center',
         justifyContent: 'flex-end',
-      }
+      },
+      noContactText:{
+        position: 'absolute',
+        top: '50%',
+        left: 0,
+        fontSize: 14,
+        width:'100%',
+        textAlign: 'center',
+        color: '#000',
+      },
 
   });

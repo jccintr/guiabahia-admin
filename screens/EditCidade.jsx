@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
@@ -32,7 +32,7 @@ const EditCidade = ({route}) => {
       const docRef = doc(database,'Cidades',cidade.id);
       updateDoc(docRef,{nome: nomeCidade});
       cidade.nome = nomeCidade;
-      console.log("cidade-nome="+cidade.nome);
+      
       navigation.navigate('Cidade',{cidade: cidade});
 
     }
@@ -47,7 +47,7 @@ const EditCidade = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-            label="Nome"
+            label="Nome:"
             placeholder="Digite o nome da cidade"
             value={nomeCidade}
             onChangeText={ (text) => setNomeCidade(text)}
@@ -71,7 +71,7 @@ export default EditCidade
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: 40,
+        paddingTop: 10,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

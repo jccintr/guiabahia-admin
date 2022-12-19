@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
@@ -46,7 +46,7 @@ const EditContato = ({route}) => {
         
         <SafeAreaView style={styles.container}>
             <InputField 
-            label="Nome"
+            label="Nome:"
             placeholder="Digite o nome do contato"
             value={nome}
             onChangeText={ (text) => setNome(text)}
@@ -54,7 +54,7 @@ const EditContato = ({route}) => {
             keyboard="default"
           />
             <InputField 
-            label="Telefone"
+            label="Telefone:"
            placeholder="Digite o telefone do contato"
            value={telefone}
            onChangeText={ (text) => setTelefone(text)}
@@ -80,7 +80,7 @@ export default EditContato
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        paddingTop: 40,
+        paddingTop: 10,
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',

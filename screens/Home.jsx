@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, SafeAreaView,View,ScrollView, StatusBar, TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, SafeAreaView, StatusBar, TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import { cores } from '../globalStyle';
 
@@ -12,7 +12,7 @@ const Home = () => {
     return (
         
         <SafeAreaView style={styles.container}>
-            <StatusBar/>
+            <StatusBar barStyle="dark-content" />
             <TouchableOpacity style={styles.menu} onPress={()=>navigation.navigate('Cidades')}>
                 <Text style={styles.menuText}>Cadastro de Cidades</Text>
             </TouchableOpacity>

@@ -2,7 +2,7 @@ import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
 import { StyleSheet,SafeAreaView,View,ScrollView,TouchableOpacity,Text} from 'react-native';
 import { database } from '../firebaseConfig';
-import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
+import { collection,onSnapshot, orderBy, query,where } from 'firebase/firestore';
 import ContactItem from '../components/ContactItem';
 import { FontAwesome,Feather,MaterialIcons } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
@@ -63,7 +63,7 @@ const onEditCidade = () => {
    navigation.navigate('EditCidade',{cidade: cidade});
 }
 const onAddPress = () => {
-  console.log("onAddpress cidadeId="+cidadeId);
+ 
  navigation.navigate('AddContato',{cidadeId: cidadeId});
 }
 
@@ -85,7 +85,7 @@ const onContatoPress = (contato) => {
             value={searchText}
             onChangeText={t=>setSearchText(t)}
         />:''}
-       {contatos.length===0 ? <Text style={styles.noContactText}>Nenhum contato cadastrado.</Text>:''}
+       {contatos.length===0 ? <Text style={styles.noContactText}>Nenhum contato encontrado.</Text>:''}
        <ScrollView style={{width:'100%'}} showsVerticalScrollIndicator={false}>
          {contatos.filter((contato)=>contato.nome.toUpperCase().includes(searchText.toUpperCase())).sort((a,b) => (a.nome > b.nome) ? 1 : ((b.nome > a.nome) ? -1 : 0)).map(contato => <TouchableOpacity key={contato.id} style={{width:'100%'}} onPress={()=>onContatoPress(contato)}><ContactItem key={contato.id} label={contato.nome} categoria={GetCategoryName(contato.categoriaId)}/></TouchableOpacity>)}
        </ScrollView>
