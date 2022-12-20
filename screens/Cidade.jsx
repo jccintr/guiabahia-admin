@@ -7,7 +7,7 @@ import ContactItem from '../components/ContactItem';
 import { FontAwesome,Feather,MaterialIcons } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
 import SearchField from '../components/SearchField';
-
+import { StatusBar } from 'expo-status-bar';
 
 
 const Cidade = ({route}) => {
@@ -17,7 +17,6 @@ const Cidade = ({route}) => {
   const [categorias,setCategorias] = useState([]);
   const [isLoading,setIsLoading] = useState(true);
   const [cidadeId,setCidadeId] = useState(cidade.id);
-  const [pesquisa,setPesquisa] = useState('');
   const [searchText,setSearchText] = useState('');
 
 
@@ -62,9 +61,9 @@ const GetCategoryName = (categoryId) => {
 const onEditCidade = () => {
    navigation.navigate('EditCidade',{cidade: cidade});
 }
+
 const onAddPress = () => {
- 
- navigation.navigate('AddContato',{cidadeId: cidadeId});
+  navigation.navigate('AddContato',{cidadeId: cidadeId});
 }
 
 const onContatoPress = (contato) => {
@@ -73,6 +72,7 @@ const onContatoPress = (contato) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="dark-content" />
        <View style={styles.cityNamearea}>
           <Text style={styles.cityNameText}>{cidade.nome}</Text>
           <TouchableOpacity onPress={()=>onEditCidade()}>

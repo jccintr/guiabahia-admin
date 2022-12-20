@@ -3,66 +3,44 @@ import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
-import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
+import { doc,updateDoc} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import { StatusBar } from 'expo-status-bar';
 
-const EditCategoria = ({route}) => {
+const EditDistrito = ({route}) => {
     const navigation = useNavigation();
-    const {categoria} = route.params;
-    const [nomeCategoria,setNomeCategoria] = useState(categoria.nome);
-    const [ordemCategoria,setOrdemCategoria] = useState(categoria.ordem);
+    const {distrito} = route.params;
+    const [nome,setNome] = useState(distrito.nome);
+    
    
-    /*
-    const deleteAlert = () =>
-    Alert.alert(
-      "Atenção !",
-      "Deseja realmente excluir este contato ?",
-      [
-        {
-          text: "Cancelar",
-          onPress: () => console.log("Cancel Pressed"),
-          style: "cancel"
-        },
-        { text: "Excluir", onPress: () => console.log("OK Pressed") }
-      ]
-    );
-    */
 
     const onSalvar =  () => {
     
-      const docRef = doc(database,'Categorias',categoria.id);
-      updateDoc(docRef,{nome: nomeCategoria,ordem: ordemCategoria});
+      const docRef = doc(database,'Distritos',distrito.id);
+      updateDoc(docRef,{nome: nome});
       navigation.goBack();
 
     }
-
+/*
     const onDelete = async () => {
         const docRef = doc(database,'Categorias',categoria.id);
         deleteDoc(docRef);
         navigation.goBack();
     }
-
+*/
     return (
         
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle="dark-content" />
             <InputField 
             label="Nome:"
-            placeholder="Digite o nome da categoria"
-            value={nomeCategoria}
-            onChangeText={ (text) => setNomeCategoria(text)}
+            placeholder="Digite o nome do distrito"
+            value={nome}
+            onChangeText={ (text) => setNome(text)}
             password={false}
             keyboard="default"
           />
-            <InputField 
-           label="Ordem de Exibição:"
-           placeholder="Digite a ordem da categoria"
-           value={ordemCategoria.toString()}
-           onChangeText={ (text) => setOrdemCategoria(text*1)}
-           password={false}
-           keyboard="number-pad"
-       />
+           
        
           
             <TouchableOpacity onPress={onSalvar} style={styles.button}>
@@ -74,7 +52,7 @@ const EditCategoria = ({route}) => {
        )
 }
 
-export default EditCategoria
+export default EditDistrito
 
 
 const styles = StyleSheet.create({

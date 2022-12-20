@@ -12,6 +12,9 @@ import EditCategoria from "../screens/EditCategoria";
 import Cidade from "../screens/Cidade";
 import AddContato from "../screens/AddContato";
 import EditContato from "../screens/EditContato";
+import AddDistrito from "../screens/AddDistrito";
+import EditDistrito from "../screens/EditDistrito";
+
 
 
 const Stack = createNativeStackNavigator();
@@ -30,6 +33,8 @@ const MainStack = () => {
         <Stack.Screen  name="Cidade" options={{ title: 'Informações da Cidade' }} component={Cidade}/>
         <Stack.Screen  name="AddContato" options={{ title: 'Novo Contato' }} component={AddContato}/>
         <Stack.Screen  name="EditContato" options={{ title: 'Editando Contato' }} component={EditContato}/>
+        <Stack.Screen  name="AddDistrito" options={{ title: 'Novo Distrito' }} component={AddDistrito}/>
+        <Stack.Screen  name="EditDistrito" options={{ title: 'Editando Distrito' }} component={EditDistrito}/>
     </Stack.Navigator>
   )
 }

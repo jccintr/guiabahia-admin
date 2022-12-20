@@ -1,12 +1,13 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
-import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, StatusBar, TouchableOpacity} from 'react-native';
+import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native';
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
-import ListItem from '../components/Listitem';
+import ListItem from '../components/ListItem';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
 import SearchField from '../components/SearchField';
+import { StatusBar } from 'expo-status-bar';
 
 
 
@@ -41,7 +42,7 @@ const onAddPress = () =>{
 return (
 
     <SafeAreaView style={styles.container}>
-        <StatusBar/>
+        <StatusBar barStyle="dark-content" />
         <SearchField
             placeholder="Pesquisar"
             value={searchText}

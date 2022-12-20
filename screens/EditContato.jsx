@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, SafeAreaView,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
 import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
 import { cores } from '../globalStyle';
+import { StatusBar } from 'expo-status-bar';
 
 const EditContato = ({route}) => {
     const navigation = useNavigation();
@@ -45,6 +46,7 @@ const EditContato = ({route}) => {
     return (
         
         <SafeAreaView style={styles.container}>
+          <StatusBar barStyle="dark-content" />
             <InputField 
             label="Nome:"
             placeholder="Digite o nome do contato"

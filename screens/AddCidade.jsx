@@ -5,6 +5,7 @@ import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
 import { collection,addDoc } from 'firebase/firestore';
 import { cores } from '../globalStyle';
+import { StatusBar } from 'expo-status-bar';
 
 const AddCidade = () => {
     const navigation = useNavigation();
@@ -13,13 +14,15 @@ const AddCidade = () => {
    
 
     const onCadastrar = async () => {
-         await addDoc(collection(database,'Cidades'),{nome: nomeCidade});
+         const docRef = await addDoc(collection(database,'Cidades'),{nome: nomeCidade});
+         await addDoc(collection(database,'Distritos'),{nome: 'Sede',cidadeId: docRef.id});
          navigation.goBack();
     }
 
     return (
         
         <SafeAreaView style={styles.container}>
+          <StatusBar barStyle="dark-content" />
             <InputField 
            label="Nome:"
            placeholder="Digite o nome da cidade"

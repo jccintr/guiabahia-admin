@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, Image, SafeAreaView,ActivityIndicator,TouchableOpacity } from 'react-native';
+import { StyleSheet, Image, SafeAreaView,ActivityIndicator } from 'react-native';
 import logo from '../assets/logo-300.png';
 import { useNavigation } from '@react-navigation/native';
 import { cores } from '../globalStyle';
-
+import { StatusBar } from 'expo-status-bar';
 
 
 const Preload = () => {
@@ -25,6 +25,7 @@ const Preload = () => {
 
     return (
         <SafeAreaView style={styles.container}>
+          <StatusBar barStyle="dark-content" />
             <Image source={logo} style={styles.imagelogo}/>
             <ActivityIndicator size="large" color={cores.botaoBackground}/>
         </SafeAreaView>

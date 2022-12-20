@@ -6,6 +6,7 @@ import { database } from '../firebaseConfig';
 import { collection,addDoc,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import { Picker } from '@react-native-picker/picker';
+import { StatusBar } from 'expo-status-bar';
 
 
 const AddContato = ({route}) => {
@@ -15,8 +16,24 @@ const AddContato = ({route}) => {
     const cidadeId = route.params.cidadeId;
     const [categoriaId,setCategoriaId] = useState('');
     const [categorias,setCategorias] = useState([]);
+    const [distritoId,setDistritoId] = useState('');
+    const [distritos,setDistritos] = useState([]);
     const [isLoading,setIsLoading] = useState(false);
    
+
+    useEffect(()=>{
+      const collectionRef = collection(database,'Distritos');
+      const q = query(collectionRef, where("cidadeId", "==", cidadeId));
+      
+      const unsuscribe = onSnapshot(q,querySnapshot => {
+        setDistritos(querySnapshot.docs.map(doc => ( {id: doc.id, nome: doc.data().nome} )))
+      })
+      setIsLoading(false);
+      return unsuscribe;
+  
+  }, []);
+
+
 
     useEffect(()=>{
       const collectionRef = collection(database,'Categorias');
@@ -34,13 +51,14 @@ const AddContato = ({route}) => {
 
     const onCadastrar = async () => {
          
-         await addDoc(collection(database,'Contatos'),{nome: nome,telefone: telefone,cidadeId: cidadeId,categoriaId: categoriaId});
+         await addDoc(collection(database,'Contatos'),{nome: nome,telefone: telefone,cidadeId: cidadeId,distritoId: distritoId,categoriaId: categoriaId});
          navigation.goBack();
     }
 
     return (
         
         <SafeAreaView style={styles.container}>
+          <StatusBar barStyle="dark-content" />
             <InputField 
                 label="Nome:"
                 placeholder="Digite o nome do contato"
@@ -57,12 +75,21 @@ const AddContato = ({route}) => {
               password={false}
               keyboard="number-pad"
             />
+            <Text style={styles.labelText}>Categoria:</Text>
             <Picker
                   style={{width: '100%', backgroundColor: cores.cinzaClaro,borderRadius: 10,marginBottom:10}} 
                   selectedValue={categoriaId}
                   onValueChange={(itemValue, itemIndex)=>setCategoriaId(itemValue)
                 }>
                 {categorias.map(categoria=><Picker.Item key={categoria.id} label={categoria.nome} value={categoria.id} />)}
+             </Picker>
+            <Text style={styles.labelText}>Distrito:</Text>
+             <Picker
+                  style={{width: '100%', backgroundColor: cores.cinzaClaro,borderRadius: 10,marginBottom:10}} 
+                  selectedValue={distritoId}
+                  onValueChange={(itemValue, itemIndex)=>setDistritoId(itemValue)
+                }>
+                {distritos.map(distrito=><Picker.Item key={distrito.id} label={distrito.nome} value={distrito.id} />)}
              </Picker>
       
             <TouchableOpacity onPress={onCadastrar} style={styles.button}>
@@ -102,5 +129,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
       },
+      labelText:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        width:'100%',
+        paddingLeft: 10,
+        marginBottom: 5,
+     },
     
   });

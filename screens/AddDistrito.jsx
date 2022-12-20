@@ -1,21 +1,22 @@
-import React, {useState } from 'react';
+import React, { useEffect,useState } from 'react';
 import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
-import { collection,addDoc } from 'firebase/firestore';
+import { collection,addDoc,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import { StatusBar } from 'expo-status-bar';
 
-const AddCategoria = () => {
+
+const AddDistrito = ({route}) => {
     const navigation = useNavigation();
-    const [nomeCategoria,setNomeCategoria] = useState('');
-    const [ordemCategoria,setOrdemCategoria] = useState(1);
-    
+    const [nome,setNome] = useState('');
+    const cidadeId = route.params.cidadeId;
    
 
     const onCadastrar = async () => {
-         await addDoc(collection(database,'Categorias'),{nome: nomeCategoria,ordem: ordemCategoria});
+         
+         await addDoc(collection(database,'Distritos'),{nome: nome,cidadeId: cidadeId});
          navigation.goBack();
     }
 
@@ -24,31 +25,24 @@ const AddCategoria = () => {
         <SafeAreaView style={styles.container}>
           <StatusBar barStyle="dark-content" />
             <InputField 
-           label="Nome:"
-           placeholder="Digite o nome da categoria"
-           value={nomeCategoria}
-           onChangeText={ (text) => setNomeCategoria(text)}
-           password={false}
-           keyboard="default"
-       />
-        <InputField 
-           label="Ordem:"
-           placeholder="Digite a ordem da categoria"
-           value={ordemCategoria}
-           onChangeText={ (text) => setOrdemCategoria(text*1)}
-           password={false}
-           keyboard="number-pad"
-       />
-     
-       <TouchableOpacity onPress={onCadastrar} style={styles.button}>
-        <Text  style={styles.buttonText}>ADICIONAR CATEGORIA</Text>
-      </TouchableOpacity>
+                label="Nome:"
+                placeholder="Digite o nome do distrito"
+                value={nome}
+                onChangeText={ (text) => setNome(text)}
+                password={false}
+                keyboard="default"
+            />
+            
+           
+            <TouchableOpacity onPress={onCadastrar} style={styles.button}>
+              <Text  style={styles.buttonText}>ADICIONAR DISTRITO</Text>
+            </TouchableOpacity>
         </SafeAreaView>
        
        )
 }
 
-export default AddCategoria
+export default AddDistrito
 
 
 const styles = StyleSheet.create({
