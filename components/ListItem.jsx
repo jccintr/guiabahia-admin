@@ -10,7 +10,7 @@ const ListItem = ({label}) => {
   return (
     <View style={styles.container}>
         <Text style={styles.text}>{label}</Text>
-        <Entypo name="chevron-small-right" size={30} color="black" />  
+        <Entypo name="chevron-small-right" size={30} color="#fff" />  
     </View>
   )
 }
@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     },
    text:{
       fontSize: 18,
+      color: '#fff',
      
    },
     

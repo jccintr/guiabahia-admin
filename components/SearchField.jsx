@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
       fontSize: 16,
       paddingHorizontal: 4,
       marginLeft: 10,
+      color: '#fff',
     },
    
   });

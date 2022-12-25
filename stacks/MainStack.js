@@ -23,11 +23,11 @@ const MainStack = () => {
   return (
     <Stack.Navigator screenOptions={{ headerShown: true}} initialRouteName="Preload">
         <Stack.Screen  name="Preload" options={{ headerShown: false }} component={Preload}/>
-        <Stack.Screen  name="Home" options={{ title: 'Guia Bahia Admin' }} component={Home}/>
-        <Stack.Screen  name="Cidades" options={{ title: 'Cadastro de Cidades' }} component={Cidades}/>
+        <Stack.Screen  name="Home"  options={{ headerShown: false }} component={Home}/>
+        <Stack.Screen  name="Cidades" options={{ headerShown: false }}  component={Cidades}/>
         <Stack.Screen  name="AddCidade" options={{ title: 'Nova Cidade' }} component={AddCidade}/>
         <Stack.Screen  name="EditCidade" options={{ title: 'Editando Cidade' }} component={EditCidade}/>
-        <Stack.Screen  name="Categorias" options={{ title: 'Categorias' }} component={Categorias}/>
+        <Stack.Screen  name="Categorias" options={{ headerShown: false }} component={Categorias}/>
         <Stack.Screen  name="AddCategoria" options={{ title: 'Nova Categoria' }} component={AddCategoria}/>
         <Stack.Screen  name="EditCategoria" options={{ title: 'Editando Categoria' }} component={EditCategoria}/>
         <Stack.Screen  name="Cidade" options={{ title: 'Informações da Cidade' }} component={Cidade}/>

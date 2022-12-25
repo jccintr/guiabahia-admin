@@ -1,13 +1,14 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
-import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, TouchableOpacity} from 'react-native';
+import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, TouchableOpacity,StatusBar} from 'react-native';
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
 import ListItem from '../components/ListItem';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
 import SearchField from '../components/SearchField';
-import { StatusBar } from 'expo-status-bar';
+
+import Header from '../components/Header';
 
 
 
@@ -42,7 +43,12 @@ const onAddPress = () =>{
 return (
 
     <SafeAreaView style={styles.container}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar
+            animated={true}
+            backgroundColor={cores.background}
+            barStyle="light-content"
+          />
+            <Header title="Guia Bahia Extremo Sul" subTitle="Cadastro de Categorias"/>
         <SearchField
             placeholder="Pesquisar"
             value={searchText}
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: cores.background,
         paddingHorizontal: 10,
         paddingTop: 10,
     },
@@ -87,7 +93,7 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: cores.botaoBackground,
+        backgroundColor: cores.verde,
     },
     buttonText: {
        fontWeight: 'bold',
