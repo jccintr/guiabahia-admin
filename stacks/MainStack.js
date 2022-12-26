@@ -25,16 +25,16 @@ const MainStack = () => {
         <Stack.Screen  name="Preload" options={{ headerShown: false }} component={Preload}/>
         <Stack.Screen  name="Home"  options={{ headerShown: false }} component={Home}/>
         <Stack.Screen  name="Cidades" options={{ headerShown: false }}  component={Cidades}/>
-        <Stack.Screen  name="AddCidade" options={{ title: 'Nova Cidade' }} component={AddCidade}/>
-        <Stack.Screen  name="EditCidade" options={{ title: 'Editando Cidade' }} component={EditCidade}/>
+        <Stack.Screen  name="AddCidade"  options={{ headerShown: false }} component={AddCidade}/>
+        <Stack.Screen  name="EditCidade" options={{ headerShown: false }}component={EditCidade}/>
         <Stack.Screen  name="Categorias" options={{ headerShown: false }} component={Categorias}/>
-        <Stack.Screen  name="AddCategoria" options={{ title: 'Nova Categoria' }} component={AddCategoria}/>
-        <Stack.Screen  name="EditCategoria" options={{ title: 'Editando Categoria' }} component={EditCategoria}/>
-        <Stack.Screen  name="Cidade" options={{ title: 'Informações da Cidade' }} component={Cidade}/>
-        <Stack.Screen  name="AddContato" options={{ title: 'Novo Contato' }} component={AddContato}/>
-        <Stack.Screen  name="EditContato" options={{ title: 'Editando Contato' }} component={EditContato}/>
-        <Stack.Screen  name="AddDistrito" options={{ title: 'Novo Distrito' }} component={AddDistrito}/>
-        <Stack.Screen  name="EditDistrito" options={{ title: 'Editando Distrito' }} component={EditDistrito}/>
+        <Stack.Screen  name="AddCategoria" options={{ headerShown: false }} component={AddCategoria}/>
+        <Stack.Screen  name="EditCategoria" options={{ headerShown: false }} component={EditCategoria}/>
+        <Stack.Screen  name="Cidade"  options={{ headerShown: false }} component={Cidade}/>
+        <Stack.Screen  name="AddContato" options={{ headerShown: false }} component={AddContato}/>
+        <Stack.Screen  name="EditContato" options={{ headerShown: false }} component={EditContato}/>
+        <Stack.Screen  name="AddDistrito" options={{ headerShown: false }} component={AddDistrito}/>
+        <Stack.Screen  name="EditDistrito" options={{ headerShown: false }} component={EditDistrito}/>
     </Stack.Navigator>
   )
 }

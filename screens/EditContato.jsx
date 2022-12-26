@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView,TouchableOpacity} from 'react-native';
+import { StyleSheet, Text, SafeAreaView,TouchableOpacity,StatusBar} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
 import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
 import { cores } from '../globalStyle';
-import { StatusBar } from 'expo-status-bar';
+import Header from '../components/Header';
+import { AntDesign } from '@expo/vector-icons'; 
 
 const EditContato = ({route}) => {
     const navigation = useNavigation();
@@ -46,7 +47,15 @@ const EditContato = ({route}) => {
     return (
         
         <SafeAreaView style={styles.container}>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar
+            animated={true}
+            backgroundColor={cores.background}
+            barStyle="light-content"
+          />
+            <Header title="Guia Bahia Extremo Sul" subTitle="Editando Contato"/>
+            <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+          </TouchableOpacity>
             <InputField 
             label="Nome:"
             placeholder="Digite o nome do contato"
@@ -86,13 +95,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         paddingHorizontal: 5,
     },
     button:{
         height: 50,
         width: '100%',
-        backgroundColor: cores.botaoBackground,
+        backgroundColor: cores.verde,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:15,
@@ -100,7 +109,7 @@ const styles = StyleSheet.create({
       deleteButton:{
         height: 50,
         width: '100%',
-        backgroundColor: "#f00",
+        backgroundColor: cores.vermelho,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:15,
@@ -111,5 +120,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
       },
+      backButton:{
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        top: 25,
+        left: 15,
+      }
     
   });

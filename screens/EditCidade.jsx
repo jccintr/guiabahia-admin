@@ -1,13 +1,13 @@
 import React, { useState,useEffect } from 'react';
-import { StyleSheet, Text, SafeAreaView,TouchableOpacity,ScrollView} from 'react-native';
+import { StyleSheet, Text, SafeAreaView,TouchableOpacity,ScrollView,StatusBar} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import ListItem from '../components/ListItem';
 import { database } from '../firebaseConfig';
 import { doc,deleteDoc,updateDoc,collection,query,where,onSnapshot} from 'firebase/firestore';
 import { cores } from '../globalStyle';
-import { StatusBar } from 'expo-status-bar';
-import { FontAwesome } from '@expo/vector-icons'; 
+import Header from '../components/Header';
+import { FontAwesome,AntDesign } from '@expo/vector-icons'; 
 
 
 const EditCidade = ({route}) => {
@@ -54,7 +54,15 @@ const onDistritoPress = (distrito) => {
     return (
         
         <SafeAreaView style={styles.container}>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar
+            animated={true}
+            backgroundColor={cores.background}
+            barStyle="light-content"
+          />
+            <Header title="Guia Bahia Extremo Sul" subTitle="Editando Cidade"/>
+            <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+          </TouchableOpacity>
             <InputField 
             label="Nome:"
             placeholder="Digite o nome da cidade"
@@ -90,13 +98,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         paddingHorizontal: 5,
     },
     button:{
         height: 50,
         width: '100%',
-        backgroundColor: cores.botaoBackground,
+        backgroundColor: cores.verde,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:15,
@@ -122,6 +130,7 @@ const styles = StyleSheet.create({
         width:'100%',
         textAlign: 'left',
         marginBottom:10,
+        color:'#fff',
       },
       addButton: {
         position: 'absolute',
@@ -132,8 +141,15 @@ const styles = StyleSheet.create({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: cores.botaoBackground,
+        backgroundColor: cores.verde,
     },
+    backButton:{
+      position: 'absolute',
+      width: 50,
+      height: 50,
+      top: 25,
+      left: 15,
+    }
    
     
   });

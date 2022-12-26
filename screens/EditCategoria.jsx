@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,StatusBar,Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
 import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
 import { cores } from '../globalStyle';
-import { StatusBar } from 'expo-status-bar';
+import Header from '../components/Header';
+import { AntDesign } from '@expo/vector-icons'; 
+
 
 const EditCategoria = ({route}) => {
     const navigation = useNavigation();
@@ -46,7 +48,15 @@ const EditCategoria = ({route}) => {
     return (
         
         <SafeAreaView style={styles.container}>
-          <StatusBar barStyle="dark-content" />
+          <StatusBar
+            animated={true}
+            backgroundColor={cores.background}
+            barStyle="light-content"
+          />
+            <Header title="Guia Bahia Extremo Sul" subTitle="Editando Categoria"/>
+            <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+          </TouchableOpacity>
             <InputField 
             label="Nome:"
             placeholder="Digite o nome da categoria"
@@ -63,7 +73,9 @@ const EditCategoria = ({route}) => {
            password={false}
            keyboard="number-pad"
        />
-       
+         <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+               <Text style={styles.buttonText}>EXCLUIR</Text>
+            </TouchableOpacity>
           
             <TouchableOpacity onPress={onSalvar} style={styles.button}>
                <Text style={styles.buttonText}>SALVAR</Text>
@@ -84,13 +96,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: cores.background,
         paddingHorizontal: 5,
     },
     button:{
         height: 50,
         width: '100%',
-        backgroundColor: cores.botaoBackground,
+        backgroundColor: cores.verde,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:15,
@@ -98,7 +110,7 @@ const styles = StyleSheet.create({
       deleteButton:{
         height: 50,
         width: '100%',
-        backgroundColor: "#f00",
+        backgroundColor: cores.vermelho,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:15,
@@ -109,5 +121,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
       },
+      backButton:{
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        top: 25,
+        left: 15,
+      }
     
   });

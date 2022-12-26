@@ -38,11 +38,13 @@ const styles = StyleSheet.create({
     },
    text:{
       fontSize: 18,
+      color: '#fff'
      
    },
    categoryText:{
     fontSize: 12,
     fontStyle: 'italic',
+    color: '#fff',
    }
     
     

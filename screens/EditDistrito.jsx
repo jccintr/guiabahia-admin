@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert} from 'react-native';
+import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert,StatusBar} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
 import { doc,updateDoc} from 'firebase/firestore';
 import { cores } from '../globalStyle';
-import { StatusBar } from 'expo-status-bar';
+import { AntDesign } from '@expo/vector-icons'; 
+import Header from '../components/Header';
 
 const EditDistrito = ({route}) => {
     const navigation = useNavigation();
@@ -31,7 +32,15 @@ const EditDistrito = ({route}) => {
     return (
         
         <SafeAreaView style={styles.container}>
-          <StatusBar barStyle="dark-content" />
+            <StatusBar
+            animated={true}
+            backgroundColor={cores.background}
+            barStyle="light-content"
+          />
+            <Header title="Guia Bahia Extremo Sul" subTitle="Editando Distrito"/>
+            <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+          </TouchableOpacity>
             <InputField 
             label="Nome:"
             placeholder="Digite o nome do distrito"
@@ -62,13 +71,13 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: '#fff',
+        backgroundColor: '#000',
         paddingHorizontal: 5,
     },
     button:{
         height: 50,
         width: '100%',
-        backgroundColor: cores.botaoBackground,
+        backgroundColor: cores.verde,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius:15,
@@ -87,5 +96,12 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold',
       },
+      backButton:{
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        top: 25,
+        left: 15,
+      }
     
   });

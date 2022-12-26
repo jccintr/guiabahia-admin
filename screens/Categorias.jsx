@@ -4,7 +4,7 @@ import { StyleSheet,SafeAreaView,ActivityIndicator,ScrollView, TouchableOpacity,
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query, querySnapshot,where } from 'firebase/firestore';
 import ListItem from '../components/ListItem';
-import { FontAwesome } from '@expo/vector-icons'; 
+import { FontAwesome,AntDesign } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
 import SearchField from '../components/SearchField';
 
@@ -49,6 +49,9 @@ return (
             barStyle="light-content"
           />
             <Header title="Guia Bahia Extremo Sul" subTitle="Cadastro de Categorias"/>
+            <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+          </TouchableOpacity>
         <SearchField
             placeholder="Pesquisar"
             value={searchText}
@@ -99,13 +102,17 @@ const styles = StyleSheet.create({
        fontWeight: 'bold',
        fontSize: 30,
        color: '#fff',
-
-
-    },
+},
     loading:{
-       
         alignItems: 'center',
         justifyContent: 'flex-end',
+      },
+      backButton:{
+        position: 'absolute',
+        width: 50,
+        height: 50,
+        top: 25,
+        left: 15,
       }
 
   });

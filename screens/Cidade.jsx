@@ -1,13 +1,14 @@
 import React, { useEffect,useState } from 'react';
 import { useNavigation } from '@react-navigation/native'; 
-import { StyleSheet,SafeAreaView,View,ScrollView,TouchableOpacity,Text} from 'react-native';
+import { StyleSheet,SafeAreaView,View,ScrollView,TouchableOpacity,Text,StatusBar} from 'react-native';
 import { database } from '../firebaseConfig';
 import { collection,onSnapshot, orderBy, query,where } from 'firebase/firestore';
 import ContactItem from '../components/ContactItem';
-import { FontAwesome,Feather,MaterialIcons } from '@expo/vector-icons'; 
+import { FontAwesome,AntDesign,MaterialIcons } from '@expo/vector-icons'; 
 import { cores } from '../globalStyle';
 import SearchField from '../components/SearchField';
-import { StatusBar } from 'expo-status-bar';
+
+import Header from '../components/Header';
 
 
 const Cidade = ({route}) => {
@@ -72,7 +73,15 @@ const onContatoPress = (contato) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar
+            animated={true}
+            backgroundColor={cores.background}
+            barStyle="light-content"
+          />
+      <Header title="Guia Bahia Extremo Sul" subTitle="Cidade"/>
+            <TouchableOpacity style={styles.backButton} onPress={()=>navigation.goBack()}>
+              <AntDesign name="arrowleft" size={24} color="#fff" />
+          </TouchableOpacity>
        <View style={styles.cityNamearea}>
           <Text style={styles.cityNameText}>{cidade.nome}</Text>
           <TouchableOpacity onPress={()=>onEditCidade()}>
@@ -108,7 +117,7 @@ const styles = StyleSheet.create({
       flexDirection: 'column',
       justifyContent: 'flex-start',
       alignItems: 'center',
-      backgroundColor: '#fff',
+      backgroundColor: '#000',
       paddingHorizontal: 10,
   },
   cityNamearea:{
@@ -133,6 +142,8 @@ const styles = StyleSheet.create({
     width:'100%',
     textAlign: 'left',
     marginBottom:10,
+    color:'#fff',
+    
   },
   noContactText:{
     position: 'absolute',
@@ -141,7 +152,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     width:'100%',
     textAlign: 'center',
-    color: '#000',
+    color: '#fff',
   },
   addButton: {
     position: 'absolute',
@@ -152,13 +163,20 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
-    backgroundColor: cores.botaoBackground,
+    backgroundColor: cores.verde,
 },
 buttonText: {
    fontWeight: 'bold',
    fontSize: 30,
    color: '#fff',
 },
+backButton:{
+  position: 'absolute',
+  width: 50,
+  height: 50,
+  top: 25,
+  left: 15,
+}
   
 
 });

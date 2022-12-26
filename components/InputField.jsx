@@ -40,12 +40,13 @@ const styles = StyleSheet.create({
        width:'100%',
        paddingLeft: 10,
        marginBottom: 5,
+       color: '#fff',
     },
     input: {
       flex: 1,
       fontSize: 16,
        
-      color: '#000',
+      color: '#fff',
       marginLeft: 10,
     },
    
