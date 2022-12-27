@@ -3,7 +3,7 @@ import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,StatusBar,Alert} f
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
-import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
+import { collection,doc,deleteDoc,updateDoc,query,where,getDocs} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import Header from '../components/Header';
 import { AntDesign } from '@expo/vector-icons'; 
@@ -40,9 +40,17 @@ const EditCategoria = ({route}) => {
     }
 
     const onDelete = async () => {
-        const docRef = doc(database,'Categorias',categoria.id);
-        deleteDoc(docRef);
-        navigation.goBack();
+        const collectionRef = collection(database,'Contatos');
+        const q = query(collectionRef, where("categoriaId", "==", categoria.id));
+        const querySnapshot = await getDocs(q);
+        if(querySnapshot.size===0){
+          const docRef = doc(database,'Categorias',categoria.id);
+          deleteDoc(docRef);
+          navigation.goBack();
+        } else {
+          alert('Esta categoria está sendo utilizada e não poderá ser excluida.')
+        }
+     
     }
 
     return (
@@ -73,7 +81,7 @@ const EditCategoria = ({route}) => {
            password={false}
            keyboard="number-pad"
        />
-         <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+           <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
                <Text style={styles.buttonText}>EXCLUIR</Text>
             </TouchableOpacity>
           

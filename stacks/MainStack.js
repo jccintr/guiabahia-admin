@@ -14,6 +14,7 @@ import AddContato from "../screens/AddContato";
 import EditContato from "../screens/EditContato";
 import AddDistrito from "../screens/AddDistrito";
 import EditDistrito from "../screens/EditDistrito";
+import Parametros from "../screens/Parametros";
 
 
 
@@ -35,6 +36,7 @@ const MainStack = () => {
         <Stack.Screen  name="EditContato" options={{ headerShown: false }} component={EditContato}/>
         <Stack.Screen  name="AddDistrito" options={{ headerShown: false }} component={AddDistrito}/>
         <Stack.Screen  name="EditDistrito" options={{ headerShown: false }} component={EditDistrito}/>
+        <Stack.Screen  name="Parametros" options={{ headerShown: false }} component={Parametros}/>
     </Stack.Navigator>
   )
 }

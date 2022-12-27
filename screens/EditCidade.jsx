@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import InputField from '../components/InputField';
 import ListItem from '../components/ListItem';
 import { database } from '../firebaseConfig';
-import { doc,deleteDoc,updateDoc,collection,query,where,onSnapshot} from 'firebase/firestore';
+import { doc,deleteDoc,updateDoc,collection,query,where,onSnapshot,getDocs} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import Header from '../components/Header';
 import { FontAwesome,AntDesign } from '@expo/vector-icons'; 
@@ -38,9 +38,17 @@ const onSalvar =  () => {
 }
 
 const onDelete = async () => {
-    const docRef = doc(database,'Contatos',contact.id);
+  const collectionRef = collection(database,'Contatos');
+  const q = query(collectionRef, where("cidadeId", "==", cidade.id));
+  const querySnapshot = await getDocs(q);
+  if(querySnapshot.size===0 && distritos.length === 0){
+    const docRef = doc(database,'Cidades',cidade.id);
     deleteDoc(docRef);
-    navigation.goBack();
+    navigation.navigate('Cidades');
+  } else {
+    alert('Esta cidade está sendo utilizada e não poderá ser excluida.')
+  }
+
 }
 
 const onAddPress = () => {
@@ -71,7 +79,9 @@ const onDistritoPress = (distrito) => {
             password={false}
             keyboard="default"
           />
-       
+             <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+               <Text style={styles.buttonText}>EXCLUIR</Text>
+            </TouchableOpacity>
             
             <TouchableOpacity onPress={onSalvar} style={styles.button}>
                <Text style={styles.buttonText}>SALVAR</Text>

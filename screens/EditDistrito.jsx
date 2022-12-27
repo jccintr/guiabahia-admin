@@ -3,7 +3,7 @@ import { StyleSheet, Text, SafeAreaView,View,TouchableOpacity,Alert,StatusBar} f
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
-import { doc,updateDoc} from 'firebase/firestore';
+import { collection,doc,deleteDoc,updateDoc,query,where,getDocs} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import { AntDesign } from '@expo/vector-icons'; 
 import Header from '../components/Header';
@@ -22,13 +22,21 @@ const EditDistrito = ({route}) => {
       navigation.goBack();
 
     }
-/*
+
     const onDelete = async () => {
-        const docRef = doc(database,'Categorias',categoria.id);
+
+      const collectionRef = collection(database,'Distritos');
+      const q = query(collectionRef, where("distritoId", "==", distrito.id));
+      const querySnapshot = await getDocs(q);
+      if(querySnapshot.size===0){
+        const docRef = doc(database,'Distritos',distrito.id);
         deleteDoc(docRef);
         navigation.goBack();
+      } else {
+        alert('Esta distrito está sendo utilizado e não poderá ser excluido.')
+      }
     }
-*/
+
     return (
         
         <SafeAreaView style={styles.container}>
@@ -50,7 +58,9 @@ const EditDistrito = ({route}) => {
             keyboard="default"
           />
            
-       
+           <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+               <Text style={styles.buttonText}>EXCLUIR</Text>
+            </TouchableOpacity>
           
             <TouchableOpacity onPress={onSalvar} style={styles.button}>
                <Text style={styles.buttonText}>SALVAR</Text>
