@@ -6,18 +6,45 @@ import Header from '../components/Header';
 import InputField from '../components/InputField';
 import InputArea from '../components/InputArea';
 import { AntDesign } from '@expo/vector-icons'; 
+import { database } from '../firebaseConfig';
+import { collection,updateDoc, query,getDocs,doc } from 'firebase/firestore';
 
 
 const Parametros = () => {
   const navigation = useNavigation();
   const [zap,setZap] = useState('');
   const [mensagem,setMensagem] = useState('');
+  const [aviso,setAviso] = useState('');
+  const [docId,setDocId] = useState('');
+ 
 
 
-  const onSalvar =  () => {
 
+  useEffect(()=>{
+    const getParametros = async () => {
+
+      const collectionRef = collection(database,'Parametros');
+      const q = query(collectionRef);
+      const querySnapshot = await getDocs(q);
+      querySnapshot.forEach((doc) => {
+        setDocId(doc.id);
+        setMensagem(doc.data().mensagem);
+        setZap(doc.data().telefone);
+        setAviso(doc.data().aviso);
+      });
+    
+    }
+    getParametros();
+    
+}, []);
+
+
+  const onSalvar = async () => {
    
-  
+    const docRef = doc(database,'Parametros',docId);
+    updateDoc(docRef,{telefone: zap,mensagem:mensagem,aviso:aviso});
+    navigation.goBack();
+
   }
 
 
@@ -40,13 +67,21 @@ const Parametros = () => {
             value={zap}
             onChangeText={ (text) => setZap(text)}
             password={false}
-            keyboard="default"
+            keyboard="number-pad"
           />
           <InputArea 
                   label="Mensagem:"
                   placeholder="Informe a mensagem"
                   value={mensagem}
                   onChangeText={t=>setMensagem(t)}
+                  linhas={3}
+                  
+                />
+                <InputArea 
+                  label="Aviso:"
+                  placeholder="Informe o aviso"
+                  value={aviso}
+                  onChangeText={t=>setAviso(t)}
                   linhas={3}
                   
                 />
