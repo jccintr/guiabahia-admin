@@ -3,7 +3,7 @@ import { StyleSheet, Text, SafeAreaView,TouchableOpacity,StatusBar} from 'react-
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
-import { doc,deleteDoc,updateDoc} from 'firebase/firestore';
+import { doc,deleteDoc,updateDoc,collection} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import Header from '../components/Header';
 import { AntDesign } from '@expo/vector-icons'; 
@@ -13,7 +13,9 @@ const EditContato = ({route}) => {
     const {contato} = route.params;
     const [nome,setNome] = useState(contato.nome);
     const [telefone,setTelefone] = useState(contato.telefone);
-   
+    const [categoriaId,setCategoriaId] = useState('');
+    const [categorias,setCategorias] = useState([]);;
+    const [isLoading,setIsLoading] = useState(false);
     /*
     const deleteAlert = () =>
     Alert.alert(
@@ -29,6 +31,18 @@ const EditContato = ({route}) => {
       ]
     );
     */
+    useEffect(()=>{
+      const collectionRef = collection(database,'Categorias');
+      // const q = query(collectionRef, where("nome", "==", "Daniela"));
+      const q = query(collectionRef, orderBy('nome','asc'));
+  
+      const unsuscribe = onSnapshot(q,querySnapshot => {
+        setCategorias(querySnapshot.docs.map(doc => ( {id: doc.id, nome: doc.data().nome} )))
+      })
+      setIsLoading(false);
+      return unsuscribe;
+  
+  }, []);
 
     const onSalvar =  () => {
     
@@ -71,7 +85,15 @@ const EditContato = ({route}) => {
            onChangeText={ (text) => setTelefone(text)}
            password={false}
            keyboard="number-pad"
-       />
+         />
+          <Text style={styles.labelText}>Categoria:</Text>
+            <Picker
+                  style={{width: '100%', backgroundColor: cores.cinzaClaro,borderRadius: 10,marginBottom:10}} 
+                  selectedValue={categoriaId}
+                  onValueChange={(itemValue, itemIndex)=>setCategoriaId(itemValue)
+                }>
+                {categorias.map(categoria=><Picker.Item key={categoria.id} label={categoria.nome} value={categoria.id} />)}
+             </Picker>
        
             <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
                <Text style={styles.buttonText}>EXCLUIR</Text>
