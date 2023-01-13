@@ -1,19 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, SafeAreaView,TouchableOpacity,StatusBar} from 'react-native';
 import { useNavigation } from '@react-navigation/native'; 
 import InputField from '../components/InputField';
 import { database } from '../firebaseConfig';
-import { doc,deleteDoc,updateDoc,collection} from 'firebase/firestore';
+import { doc,deleteDoc,updateDoc,collection,query,orderBy,onSnapshot} from 'firebase/firestore';
 import { cores } from '../globalStyle';
 import Header from '../components/Header';
 import { AntDesign } from '@expo/vector-icons'; 
+import { Picker } from '@react-native-picker/picker';
 
 const EditContato = ({route}) => {
     const navigation = useNavigation();
     const {contato} = route.params;
     const [nome,setNome] = useState(contato.nome);
     const [telefone,setTelefone] = useState(contato.telefone);
-    const [categoriaId,setCategoriaId] = useState('');
+    const [categoriaId,setCategoriaId] = useState(contato.categoriaId);
     const [categorias,setCategorias] = useState([]);;
     const [isLoading,setIsLoading] = useState(false);
     /*
@@ -47,7 +48,7 @@ const EditContato = ({route}) => {
     const onSalvar =  () => {
     
       const docRef = doc(database,'Contatos',contato.id);
-      updateDoc(docRef,{nome: nome,telefone: telefone});
+      updateDoc(docRef,{nome: nome,telefone: telefone,categoriaId: categoriaId});
       navigation.goBack();
 
     }
@@ -148,6 +149,14 @@ const styles = StyleSheet.create({
         height: 50,
         top: 25,
         left: 15,
-      }
+      },
+      labelText:{
+        fontSize: 18,
+        fontWeight: 'bold',
+        width:'100%',
+        paddingLeft: 10,
+        marginBottom: 5,
+        color: '#fff',
+     },
     
   });
